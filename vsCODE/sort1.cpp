@@ -1,4 +1,4 @@
-#include <iostream>//для ввода/вывода
+#include <iostream>//для ввода
 #include <fstream>
 #include <vector>
 #include <string>
@@ -136,6 +136,27 @@ int main() {
     }
     lsd_radix_sort(data, max_digit);
 
+    int sort_type;
+    cout << "Выберите вид сортировки:\n";
+    cout << "1. По зарплате (LSD)\n";
+    cout << "2. По зарплате, затем по году рождения (слияние)\n";
+    cout << "3. По дате рождения (перемешивание)\n";
+    cin >> sort_type;
+
+    switch (sort_type) {
+        case 1:
+            lsd_radix_sort(data, max_digit);
+            break;
+        case 2:
+            merge_sort(data, 0, data.size() - 1, compare_salary);
+            break;
+        case 3:
+            shuffle_sort(data, compare_birthdate);
+            break;
+        default:
+            cout << "Неверный тип сортировки. Выход из программы.\n";
+            return 1;
+    }
 
     
     write_data(output_filename, data);
